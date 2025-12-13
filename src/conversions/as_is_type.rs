@@ -22,6 +22,13 @@ impl SValue {
     pub fn is_number(&self) -> bool {
         self.is_float() || self.is_int()
     }
+    pub fn is_bool(&self) -> bool {
+        match self {
+            Self::Bool(_) => true,
+            Self::Int(_) | Self::Float(_) => false,
+            Self::Text(t) => t.as_ref() == "true" || t.as_ref() == "false",
+        }
+    }
 
     pub fn as_bool(&self) -> bool {
         self.q_as_bool(&mut ())
