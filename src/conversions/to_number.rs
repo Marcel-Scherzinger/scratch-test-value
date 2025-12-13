@@ -19,7 +19,13 @@ impl SValue {
                 if *b { SNumber::Int(1) } else { SNumber::Int(0) }
             }
             Self::Text(t) => {
-                if let Ok(i) = t.parse() {
+                if t.as_ref() == "true" {
+                    sink.put(SValueToNumberQ::BoolNotANumber(true));
+                    SNumber::Int(1)
+                } else if t.as_ref() == "false" {
+                    sink.put(SValueToNumberQ::BoolNotANumber(false));
+                    SNumber::Int(0)
+                } else if let Ok(i) = t.parse() {
                     SNumber::Int(i)
                 } else if let Ok(f) = t.parse() {
                     SNumber::Float(f)
