@@ -2,6 +2,12 @@ mod conversions;
 mod quirk_sink;
 mod utils;
 
+#[allow(unused)]
+pub(crate) mod quirks {
+    pub use crate::conversions::{SNumberToFloatQ, SValueToFloatQ, SValueToNumberQ};
+    pub use crate::quirk_sink::QuirkSink;
+}
+
 pub(crate) use quirk_sink::QuirkSink;
 
 pub use utils::ARc;
@@ -33,4 +39,3 @@ pub enum SValue {
     #[debug("{_0:?}")]
     Bool(bool),
 }
-
