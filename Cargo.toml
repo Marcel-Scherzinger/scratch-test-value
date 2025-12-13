@@ -3,6 +3,11 @@ name = "scratch-test-value"
 version = "0.1.0"
 edition = "2024"
 
+authors = ["Marcel Scherzinger"]
+description = "This defines Scratch values and how they behave on arithmethic, logical and other operations"
+documentation = "https://marcel-scherzinger.github.io/scratch-test-value"
+repository = "https://github.com/marcel-scherzinger/scratch-test-value"
+
 [dependencies]
 derive_more = { version = "2.1.0", features = ["debug", "display"] }
 itertools = "0.14.0"
@@ -10,3 +15,12 @@ itertools = "0.14.0"
 [features]
 # replaces std::rc::Rc with std::sync::Arc so that values can be shared across threads
 thread-share = []
+
+
+# linting
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+enum_glob_use = "deny"
+
