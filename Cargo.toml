@@ -1,0 +1,12 @@
+[package]
+name = "scratch-test-value"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+derive_more = { version = "2.1.0", features = ["debug", "display"] }
+itertools = "0.14.0"
+
+[features]
+# replaces std::rc::Rc with std::sync::Arc so that values can be shared across threads
+thread-share = []
