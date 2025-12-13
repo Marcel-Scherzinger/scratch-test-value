@@ -1,5 +1,5 @@
 [![Documentation on GitHub Pages](https://github.com/marcel-scherzinger/scratch-test-value/actions/workflows/deploy-docs-to-pages.yml/badge.svg)](https://marcel-scherzinger.github.io/scratch-test-value)
-[![100% Rust](https://img.shields.io/badge/Rust-100%25-green?logo=rust)](rust-lang.org)
+[![100% Rust](https://img.shields.io/badge/Rust-100%25-32c955?logo=rust)](https://rust-lang.org)
 
 # About
 
