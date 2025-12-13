@@ -1,3 +1,4 @@
+mod arithmetic;
 mod comparisons;
 mod constants;
 mod conversions;
@@ -6,7 +7,7 @@ mod utils;
 
 #[allow(unused)]
 pub(crate) mod quirks {
-    pub use crate::conversions::{SNumberToFloatQ, SValueToFloatQ, SValueToNumberQ};
+    pub use crate::conversions::{SNumberToFloatQ, SValueToBoolQ, SValueToFloatQ, SValueToNumberQ};
     pub use crate::quirk_sink::QuirkSink;
 }
 
