@@ -1,3 +1,4 @@
+mod quirk_sink;
 mod utils;
 
 pub use utils::ARc;
@@ -29,3 +30,4 @@ pub enum SValue {
     #[debug("{_0:?}")]
     Bool(bool),
 }
+
