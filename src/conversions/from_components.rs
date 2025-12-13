@@ -1,3 +1,5 @@
+#[cfg(feature = "serde_json")]
+use crate::SNumber;
 use crate::{ARc, SValue};
 
 impl std::str::FromStr for SValue {
@@ -53,5 +55,46 @@ impl From<i64> for SValue {
 impl From<f64> for SValue {
     fn from(value: f64) -> Self {
         Self::Float(value)
+    }
+}
+
+#[cfg(feature = "serde_json")]
+impl TryFrom<serde_json::Number> for SValue {
+    type Error = std::convert::Infallible;
+
+    fn try_from(value: serde_json::Number) -> Result<SValue, Self::Error> {
+        Ok(if let Some(n) = value.as_f64() {
+            Self::Float(n)
+        } else if let Some(n) = value.as_i64() {
+            Self::Int(n)
+        } else if let Some(n) = value.as_u64() {
+            if let Ok(i) = n.try_into() {
+                Self::Int(i)
+            } else {
+                Self::Float(n as f64)
+            }
+        } else {
+            Self::Int(0)
+        })
+    }
+}
+#[cfg(feature = "serde_json")]
+impl TryFrom<serde_json::Number> for SNumber {
+    type Error = std::convert::Infallible;
+
+    fn try_from(value: serde_json::Number) -> Result<SNumber, Self::Error> {
+        Ok(if let Some(n) = value.as_f64() {
+            Self::Float(n)
+        } else if let Some(n) = value.as_i64() {
+            Self::Int(n)
+        } else if let Some(n) = value.as_u64() {
+            if let Ok(i) = n.try_into() {
+                Self::Int(i)
+            } else {
+                Self::Float(n as f64)
+            }
+        } else {
+            Self::Int(0)
+        })
     }
 }
