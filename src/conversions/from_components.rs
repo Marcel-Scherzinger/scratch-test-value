@@ -59,11 +59,9 @@ impl From<f64> for SValue {
 }
 
 #[cfg(feature = "serde_json")]
-impl TryFrom<serde_json::Number> for SValue {
-    type Error = std::convert::Infallible;
-
-    fn try_from(value: serde_json::Number) -> Result<SValue, Self::Error> {
-        Ok(if let Some(n) = value.as_f64() {
+impl From<serde_json::Number> for SValue {
+    fn from(value: serde_json::Number) -> SValue {
+        if let Some(n) = value.as_f64() {
             Self::Float(n)
         } else if let Some(n) = value.as_i64() {
             Self::Int(n)
@@ -75,15 +73,13 @@ impl TryFrom<serde_json::Number> for SValue {
             }
         } else {
             Self::Int(0)
-        })
+        }
     }
 }
 #[cfg(feature = "serde_json")]
-impl TryFrom<serde_json::Number> for SNumber {
-    type Error = std::convert::Infallible;
-
-    fn try_from(value: serde_json::Number) -> Result<SNumber, Self::Error> {
-        Ok(if let Some(n) = value.as_f64() {
+impl From<serde_json::Number> for SNumber {
+    fn from(value: serde_json::Number) -> SNumber {
+        if let Some(n) = value.as_f64() {
             Self::Float(n)
         } else if let Some(n) = value.as_i64() {
             Self::Int(n)
@@ -95,6 +91,6 @@ impl TryFrom<serde_json::Number> for SNumber {
             }
         } else {
             Self::Int(0)
-        })
+        }
     }
 }
