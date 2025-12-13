@@ -1,11 +1,14 @@
+mod conversions;
 mod quirk_sink;
 mod utils;
+
+pub(crate) use quirk_sink::QuirkSink;
 
 pub use utils::ARc;
 
 /// This models a numeric Scratch value and is therefore returned by numeric
 /// operations or where it is known a value is neither a text nor a boolean.
-#[derive(derive_more::Debug, Clone, derive_more::Display)]
+#[derive(derive_more::Debug, Clone, derive_more::Display, Copy)]
 pub enum SNumber {
     #[debug("{_0:?}")]
     Int(i64),
