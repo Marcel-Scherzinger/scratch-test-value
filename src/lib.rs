@@ -7,6 +7,7 @@ mod utils;
 
 #[allow(unused)]
 pub(crate) mod quirks {
+    pub use crate::arithmetic::IntegerSubWouldFailQ;
     pub use crate::conversions::{SNumberToFloatQ, SValueToBoolQ, SValueToFloatQ, SValueToNumberQ};
     pub use crate::quirk_sink::QuirkSink;
 }
@@ -42,4 +43,3 @@ pub enum SValue {
     #[debug("{_0:?}")]
     Bool(bool),
 }
-

@@ -7,3 +7,5 @@ mod subtraction;
 mod test_division;
 #[cfg(test)]
 mod test_subtraction;
+
+pub use subtraction::IntegerSubWouldFailQ;
