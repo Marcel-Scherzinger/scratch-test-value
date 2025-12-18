@@ -5,6 +5,7 @@ use crate::{
 
 #[test]
 fn test_sub() {
+    assert_eq!(SValue::Int(0), SValue::NAN - SValue::NAN);
     assert_eq!(SValue::Int(2), SValue::NAN - SValue::Int(-2));
     assert_eq!(SValue::Int(-2), SValue::Int(-2) - SValue::NAN);
     assert_eq!(SValue::Int(-2), SValue::NAN - SValue::Int(2));

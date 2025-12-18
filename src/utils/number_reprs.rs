@@ -21,6 +21,7 @@ pub(crate) fn int2reprs(a: i64) -> Vec<SValue> {
 
 /// Like [int2reprs] but if the parameter is 0 this also returns
 /// the negative floating point version of 0.
+#[allow(non_snake_case)]
 pub(crate) fn int2reprsZ(a: i64) -> Vec<SValue> {
     if a == 0 {
         vec![
@@ -29,6 +30,7 @@ pub(crate) fn int2reprsZ(a: i64) -> Vec<SValue> {
             SValue::Float(-0.0),
             SValue::Text("0".into()),
             SValue::Text("0.0".into()),
+            SValue::Text("-0.0".into()),
         ]
     } else {
         vec![
@@ -55,6 +57,81 @@ pub(crate) fn ints2reprs(a: i64, b: i64) -> impl Iterator<Item = (SValue, SValue
 /// It's the cartesian product of [`int2reprs`]
 ///
 /// See also [ints2reprs]
+#[allow(non_snake_case)]
 pub(crate) fn ints2reprsZ(a: i64, b: i64) -> impl Iterator<Item = (SValue, SValue)> {
     int2reprsZ(a).into_iter().cartesian_product(int2reprs(b))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{int2reprs, int2reprsZ, ints2reprs, ints2reprsZ};
+    use crate::SValue;
+
+    #[test]
+    fn test_positive() {
+        assert_eq!(
+            vec![
+                SValue::Int(2),
+                SValue::Float(2.0),
+                SValue::Text("2".into()),
+                SValue::Text("2.0".into())
+            ],
+            int2reprs(2)
+        );
+        assert_eq!(
+            vec![
+                SValue::Int(2),
+                SValue::Float(2.0),
+                SValue::Text("2".into()),
+                SValue::Text("2.0".into())
+            ],
+            int2reprsZ(2)
+        );
+    }
+
+    #[test]
+    fn test_negative() {
+        assert_eq!(
+            vec![
+                SValue::Int(-2),
+                SValue::Float(-2.0),
+                SValue::Text("-2".into()),
+                SValue::Text("-2.0".into())
+            ],
+            int2reprs(-2)
+        );
+        assert_eq!(
+            vec![
+                SValue::Int(-2),
+                SValue::Float(-2.0),
+                SValue::Text("-2".into()),
+                SValue::Text("-2.0".into())
+            ],
+            int2reprsZ(-2)
+        );
+    }
+
+    #[test]
+    fn test_zero() {
+        assert_eq!(
+            vec![
+                SValue::Int(0),
+                SValue::Float(0.0),
+                SValue::Text("0".into()),
+                SValue::Text("0".into())
+            ],
+            int2reprs(0)
+        );
+        assert_eq!(
+            vec![
+                SValue::Int(0),
+                SValue::Float(0.0),
+                SValue::Float(-0.0),
+                SValue::Text("0".into()),
+                SValue::Text("0.0".into()),
+                SValue::Text("-0.0".into())
+            ],
+            int2reprsZ(0)
+        );
+    }
 }

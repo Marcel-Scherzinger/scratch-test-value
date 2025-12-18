@@ -3,6 +3,7 @@ use itertools::Itertools;
 use crate::SValue;
 use crate::utils::{int2reprs, ints2reprs};
 
+#[cfg(test)]
 fn s_is_nan(s: crate::SValue) -> bool {
     if let crate::SValue::Float(f) = s
         && f.is_nan()
@@ -11,6 +12,17 @@ fn s_is_nan(s: crate::SValue) -> bool {
     } else {
         false
     }
+}
+
+#[test]
+fn test_is_nan_helper() {
+    assert!(s_is_nan(SValue::NAN));
+    assert!(!s_is_nan(SValue::Float(2.0)));
+    assert!(!s_is_nan(SValue::Float(0.0)));
+    assert!(!s_is_nan(SValue::Float(-10.0)));
+    assert!(!s_is_nan(SValue::NEG_INFINITY));
+    assert!(!s_is_nan(SValue::INFINITY));
+    assert!(!s_is_nan(SValue::Text("NAN".into())));
 }
 
 #[test]
