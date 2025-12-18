@@ -1,4 +1,4 @@
-use std::ops::{Div, Sub};
+use std::ops::{Add, Div, Sub};
 
 use crate::{SNumber, SValue};
 
@@ -58,3 +58,4 @@ macro_rules! impl_operator {
 
 impl_operator! {Div::div, q_div_numbers}
 impl_operator! {Sub::sub, q_sub_numbers}
+impl_operator! {Add::add, q_add_numbers}
