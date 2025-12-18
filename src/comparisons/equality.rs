@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 use crate::{
     QuirkSink, SNumber, SValue,
     quirks::{SNumberToFloatQ, SValueToNumberQ},
@@ -25,7 +27,20 @@ impl SValue {
         } else {
             let a = self.as_text();
             let b = other.as_text();
-            a == b
+
+            for z in a.chars().zip_longest(b.chars()) {
+                match z {
+                    itertools::EitherOrBoth::Both(l, r) => {
+                        let l = l.to_lowercase().to_string();
+                        let r = r.to_lowercase().to_string();
+                        if l != r {
+                            return false;
+                        }
+                    }
+                    _ => return false,
+                }
+            }
+            true
         }
     }
 }

@@ -1,6 +1,9 @@
+use itertools::Itertools;
+
 use crate::{QuirkSink, SNumber, SValue, conversions::SNumberToFloatQ, quirks::SValueToNumberQ};
 
 impl SValue {
+    /// different unicode encodings of similar looking characters?
     pub fn q_lt<Q>(&self, other: &SValue, sink: &mut Q) -> bool
     where
         Q: QuirkSink<SNumberToFloatQ> + QuirkSink<SValueToNumberQ>,
@@ -10,7 +13,23 @@ impl SValue {
         {
             self.q_as_number(sink).q_lt(&other.q_as_number(sink), sink)
         } else {
-            self.as_text() < other.as_text()
+            use itertools::EitherOrBoth as E;
+            let a = self.as_text();
+            let b = other.as_text();
+            for z in a.chars().zip_longest(b.chars()) {
+                match z {
+                    E::Both(l, r) => {
+                        let l = l.to_lowercase().to_string();
+                        let r = r.to_lowercase().to_string();
+                        if l != r {
+                            return l < r;
+                        }
+                    }
+                    E::Left(_) => return false,
+                    E::Right(_) => return true,
+                }
+            }
+            false
         }
     }
 

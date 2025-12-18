@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use crate::SValue;
 
 #[test]
@@ -24,4 +26,16 @@ fn test_bool_ordering() {
 
     assert!(!(SValue::Text("true".into()) < SValue::Text("2".into())));
     assert!(!(SValue::Text("false".into()) < SValue::Text("2".into())));
+}
+
+#[test]
+fn test_case_insensitive() {
+    assert_eq!(
+        Some(Ordering::Equal),
+        SValue::Text("a".into()).partial_cmp(&SValue::Text("A".into()))
+    );
+    assert_eq!(
+        Some(Ordering::Less),
+        SValue::Text("".into()).partial_cmp(&SValue::Text("A".into()))
+    );
 }
