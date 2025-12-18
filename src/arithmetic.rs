@@ -1,5 +1,6 @@
 mod addition;
 mod division;
+mod multiplication;
 #[cfg(test)]
 mod operator_traits;
 mod subtraction;
@@ -10,6 +11,8 @@ mod test_addition;
 mod test_addition2;
 #[cfg(test)]
 mod test_division;
+#[cfg(test)]
+mod test_multiplication;
 #[cfg(test)]
 mod test_subtraction;
 
