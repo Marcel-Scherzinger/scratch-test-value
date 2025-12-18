@@ -24,7 +24,7 @@ impl SValue {
 }
 
 impl SNumber {
-    /// If both numbers are finite integers numbers are subtracted as integers
+    /// If both numbers are finite integers numbers are added as integers
     /// if the result fits into an [`i64`].
     ///
     /// Otherwise, the below table applys. p and q are arbitraty finite floats.
