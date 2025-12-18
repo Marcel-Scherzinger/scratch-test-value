@@ -15,3 +15,13 @@ fn test_empty_string() {
     assert!(!(SValue::POS_ZERO < SValue::from("")));
     assert!(!(SValue::NEG_ZERO < SValue::from("")));
 }
+
+#[test]
+#[allow(clippy::neg_cmp_op_on_partial_ord)]
+fn test_bool_ordering() {
+    assert!(SValue::Bool(true) < SValue::Text("2".into()));
+    assert!(SValue::Bool(false) < SValue::Text("2".into()));
+
+    assert!(!(SValue::Text("true".into()) < SValue::Text("2".into())));
+    assert!(!(SValue::Text("false".into()) < SValue::Text("2".into())));
+}

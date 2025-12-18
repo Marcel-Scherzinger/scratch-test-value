@@ -5,7 +5,9 @@ impl SValue {
     where
         Q: QuirkSink<SNumberToFloatQ> + QuirkSink<SValueToNumberQ>,
     {
-        if (self.is_number() || self.is_bool()) && (other.is_number() || other.is_bool()) {
+        if (self.is_number() || self.is_bool_but_not_as_text())
+            && (other.is_number() || other.is_bool_but_not_as_text())
+        {
             self.q_as_number(sink).q_lt(&other.q_as_number(sink), sink)
         } else {
             self.as_text() < other.as_text()

@@ -126,3 +126,18 @@ fn test_textual_cmp() {
     assert_eq!(SValue::from("true"), SValue::Bool(true));
     assert_ne!(SValue::from("true"), SValue::Bool(false));
 }
+
+#[test]
+fn test_bool_equality() {
+    assert!(SValue::Bool(true) == SValue::Text("true".into()));
+    assert!(SValue::Bool(false) == SValue::Text("false".into()));
+
+    assert!(SValue::Bool(true) == SValue::Int(1));
+    assert!(SValue::Bool(false) == SValue::Int(0));
+
+    assert!(SValue::Int(1) != SValue::Text("true".into()));
+    assert!(SValue::Int(0) != SValue::Text("false".into()));
+
+    assert!(SValue::Text("true".into()) == SValue::Bool(true));
+    assert!(SValue::Text("false".into()) == SValue::Bool(false));
+}
