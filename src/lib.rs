@@ -2,6 +2,7 @@ mod arithmetic;
 mod comparisons;
 mod constants;
 mod conversions;
+mod math;
 mod quirk_sink;
 mod utils;
 
