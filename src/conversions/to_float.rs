@@ -63,4 +63,14 @@ impl SNumber {
             Self::Float(f) => *f,
         }
     }
+    /// internal convenience method that transforms the [`f64`] from
+    /// [`Self::q_as_float`] to [`0`] if it was [`f64::NAN`]
+    /// as many Scratch blocks treat [`f64::NAN`] as zero.
+    pub(crate) fn q_as_float_nan_is_zero<Q>(&self, sink: &mut Q) -> f64
+    where
+        Q: QuirkSink<SNumberToFloatQ>,
+    {
+        let f = self.q_as_float(sink);
+        if f.is_nan() { 0.0 } else { f }
+    }
 }

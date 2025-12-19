@@ -9,7 +9,7 @@ pub enum SValueToNumberQ {
 }
 
 impl SValue {
-    pub fn q_as_number<Q>(&self, sink: &mut Q) -> SNumber
+    pub fn q_as_number_permissive_bool_text<Q>(&self, sink: &mut Q) -> SNumber
     where
         Q: QuirkSink<SValueToNumberQ>,
     {
@@ -38,4 +38,55 @@ impl SValue {
             Self::Float(f) => SNumber::Float(*f),
         }
     }
+    pub fn q_as_number<Q>(&self, sink: &mut Q) -> SNumber
+    where
+        Q: QuirkSink<SValueToNumberQ>,
+    {
+        self.q_as_number_strict_bool_text(sink)
+    }
+
+    pub fn q_as_number_strict_bool_text<Q>(&self, sink: &mut Q) -> SNumber
+    where
+        Q: QuirkSink<SValueToNumberQ>,
+    {
+        match self {
+            Self::Bool(b) => {
+                sink.put(SValueToNumberQ::BoolNotANumber(*b));
+                if *b { SNumber::Int(1) } else { SNumber::Int(0) }
+            }
+            Self::Text(t) => {
+                if let Ok(i) = t.parse() {
+                    SNumber::Int(i)
+                } else if let Ok(f) = t.parse() {
+                    SNumber::Float(f)
+                } else {
+                    sink.put(SValueToNumberQ::TextNotANumber(t.clone()));
+                    SNumber::Int(0)
+                }
+            }
+            Self::Int(i) => SNumber::Int(*i),
+            Self::Float(f) => SNumber::Float(*f),
+        }
+    }
 }
+
+impl SNumber {
+    pub fn int_or_border<Q>(&self, sink: &mut Q) -> i64
+    where
+        Q: QuirkSink<NumberTooBigForIntQ>,
+    {
+        match self {
+            Self::Int(i) => *i,
+            Self::Float(f) => {
+                if !((f.is_sign_positive() && *f <= (i64::MAX as f64))
+                    || (f.is_sign_negative() && *f >= (i64::MIN as f64)))
+                {
+                    sink.put(NumberTooBigForIntQ(*f));
+                }
+                *f as i64
+            }
+        }
+    }
+}
+
+pub struct NumberTooBigForIntQ(f64);
