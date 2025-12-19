@@ -4,13 +4,18 @@ mod constants;
 mod conversions;
 mod math;
 mod quirk_sink;
+mod rand_range;
+mod texts;
 mod utils;
 
 #[allow(unused)]
-pub(crate) mod quirks {
+pub mod quirks {
     pub use crate::arithmetic::{IntegerAddWouldFailQ, IntegerSubWouldFailQ};
-    pub use crate::conversions::{SNumberToFloatQ, SValueToBoolQ, SValueToFloatQ, SValueToNumberQ};
+    pub use crate::conversions::{
+        NumberTooBigForIntQ, SNumberToFloatQ, SValueToBoolQ, SValueToFloatQ, SValueToNumberQ,
+    };
     pub use crate::quirk_sink::QuirkSink;
+    pub use crate::texts::NthLetterOfTextQ;
 }
 
 pub(crate) use quirk_sink::QuirkSink;

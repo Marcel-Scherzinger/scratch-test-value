@@ -1,4 +1,4 @@
-use crate::{QuirkSink, SNumber, SValue, quirks::SValueToNumberQ};
+use crate::SNumber;
 
 impl SNumber {
     pub fn sqrt(&self) -> SNumber {
@@ -19,13 +19,5 @@ impl SNumber {
                 SNumber::Float(f.sqrt())
             }
         }
-    }
-}
-impl SValue {
-    pub fn sqrt<Q>(&self, sink: &mut Q) -> SNumber
-    where
-        Q: QuirkSink<SValueToNumberQ>,
-    {
-        self.q_as_number(sink).sqrt()
     }
 }
