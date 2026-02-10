@@ -21,6 +21,10 @@ See those for a more detailed explaination of the project
 
 # Limitations
 
+This project is assumed to be used for **algorithmic exercises**, so the focus is
+on control structures, input, output, variables and lists.
+
+- Sounds, movements, colors, etc. are not planned.
 - Scratch often tries to do _something_ to avoid exceptions or fatal errors.
   Some expressions don't evaluate to a value programmers would expect based on their
   knowledge from other languages. This project tries to model them but there is still a
