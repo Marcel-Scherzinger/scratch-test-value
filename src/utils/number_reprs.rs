@@ -64,7 +64,7 @@ pub(crate) fn ints2reprsZ(a: i64, b: i64) -> impl Iterator<Item = (SValue, SValu
 
 #[cfg(test)]
 mod tests {
-    use super::{int2reprs, int2reprsZ, ints2reprs, ints2reprsZ};
+    use super::{int2reprs, int2reprsZ};
     use crate::SValue;
 
     #[test]

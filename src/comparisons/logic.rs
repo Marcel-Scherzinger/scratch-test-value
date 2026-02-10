@@ -24,6 +24,7 @@ impl SValue {
         !self.q_as_bool(sink)
     }
 
+    #[allow(unused)]
     pub(crate) fn and(&self, other: &SValue) -> bool {
         // there should never be any errors for user programs as expression
         // blocks (texts/numbers) can't be placed in condition wholes of shape <..>.
@@ -31,6 +32,7 @@ impl SValue {
         self.q_and(other, &mut ())
     }
 
+    #[allow(unused)]
     pub(crate) fn or(&self, other: &SValue) -> bool {
         // there should never be any errors for user programs as expression
         // blocks (texts/numbers) can't be placed in condition wholes of shape <..>.
@@ -38,6 +40,7 @@ impl SValue {
         self.q_or(other, &mut ())
     }
 
+    #[allow(unused)]
     pub(crate) fn not(&self) -> bool {
         // there should never be any errors for user programs as expression
         // blocks (texts/numbers) can't be placed in condition wholes of shape <..>.

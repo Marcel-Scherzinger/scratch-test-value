@@ -2,7 +2,7 @@ mod nth_letter;
 
 pub use nth_letter::NthLetterOfTextQ;
 
-use crate::{ARc, SNumber, SValue};
+use crate::{ARc, SValue};
 
 impl SValue {
     /// Concatenates this value (as string) with another value (as string)

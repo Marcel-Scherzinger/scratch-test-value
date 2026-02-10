@@ -1,5 +1,6 @@
 use crate::{SNumber, quirks::SNumberToFloatQ};
 
+mod exp;
 mod round;
 mod sqrt;
 mod trig;

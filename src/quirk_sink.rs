@@ -22,7 +22,8 @@ impl<M> QuirkSink<M> for () {
     fn put(&mut self, _: M) {}
 }
 
-pub struct ScopedQuirkSink<'a, QS, F> {
+#[allow(unused)]
+pub(crate) struct ScopedQuirkSink<'a, QS, F> {
     inner_sink: &'a mut QS,
     wrapper: F,
 }
@@ -37,7 +38,8 @@ where
     }
 }
 
-pub trait ScopableQuirkSink<I, O> {
+#[allow(unused)]
+pub(crate) trait ScopableQuirkSink<I, O> {
     fn scope_map<F>(&mut self, func: F) -> ScopedQuirkSink<'_, Self, F>
     where
         Self: Sized,

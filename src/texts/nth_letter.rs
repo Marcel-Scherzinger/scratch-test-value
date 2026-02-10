@@ -11,6 +11,7 @@ pub enum NthLetterOfTextQ {
     PositionTooBig(i64),
 }
 impl SValue {
+    #[allow(unused)]
     fn nth_letter_of_me<Q>(&self, one_based_n: &SValue, sink: &mut Q) -> SValue
     where
         Q: QuirkSink<NthLetterOfTextQ>

@@ -22,6 +22,7 @@ impl SValue {
     pub fn is_number(&self) -> bool {
         self.is_float() || self.is_int()
     }
+    #[allow(unused)]
     fn is_bool_or_bool_text(&self) -> bool {
         match self {
             Self::Bool(_) => true,

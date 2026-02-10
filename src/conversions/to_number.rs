@@ -45,6 +45,13 @@ impl SValue {
         self.q_as_number_strict_bool_text(sink)
     }
 
+    /// Converts the [`SValue`] to an [`SNumber`]
+    ///
+    /// - The boolean `true` will become integer 1
+    /// - The boolean `false` will become integer 0
+    /// - Any text (also the strings `"true"`, `"false"`) will become integer 0
+    /// - Integers will stay as they are
+    /// - Floats will stay as they are
     pub fn q_as_number_strict_bool_text<Q>(&self, sink: &mut Q) -> SNumber
     where
         Q: QuirkSink<SValueToNumberQ>,
@@ -89,4 +96,5 @@ impl SNumber {
     }
 }
 
+#[allow(unused)]
 pub struct NumberTooBigForIntQ(f64);
