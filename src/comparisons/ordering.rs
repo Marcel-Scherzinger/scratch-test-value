@@ -43,6 +43,11 @@ impl SValue {
 }
 
 impl SNumber {
+    /// Compares two numbers and checks if the first is smaller than the second
+    ///
+    /// The ordering seems to be: `-∞` < number < `+∞` < `NaN` < `NaN`
+    /// (`NaN` is smaller than itself)
+    ///
     /// - `[t]` `NaN`  < `NaN`           → true
     /// - `[f]` `NaN`  < `±∞`            → false
     /// - `[f]` `NaN`  < number          → false
