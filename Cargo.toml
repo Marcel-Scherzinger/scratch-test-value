@@ -12,6 +12,7 @@ repository = "https://github.com/marcel-scherzinger/scratch-test-value"
 derive_more = { version = "2.1.0", features = ["debug", "display"] }
 itertools = "0.14.0"
 serde_json = { version = "1", optional = true }
+thiserror = "2.0"
 
 [features]
 # replaces std::rc::Rc with std::sync::Arc so that values can be shared across threads

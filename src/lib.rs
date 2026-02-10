@@ -2,6 +2,7 @@ mod arithmetic;
 mod comparisons;
 mod constants;
 mod conversions;
+mod lists;
 mod math;
 mod quirk_sink;
 mod rand_range;
@@ -21,6 +22,8 @@ pub mod quirks {
 pub(crate) use quirk_sink::QuirkSink;
 
 pub use utils::ARc;
+
+pub use lists::SList;
 
 /// This models a numeric Scratch value and is therefore returned by numeric
 /// operations or where it is known a value is neither a text nor a boolean.
