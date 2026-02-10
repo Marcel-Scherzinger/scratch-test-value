@@ -1,6 +1,7 @@
 use crate::{SNumber, quirks::SNumberToFloatQ};
 
 mod exp;
+mod modulo;
 mod round;
 mod sqrt;
 mod trig;
@@ -42,6 +43,14 @@ impl crate::SValue {
     {
         self.q_as_number_strict_bool_text(sink).abs()
     }
+
+    pub fn q_modulo<Q>(&self, other: &Self, sink: &mut Q) -> SNumber
+    where
+        Q: crate::QuirkSink<crate::quirks::SNumberToFloatQ>
+            + crate::QuirkSink<crate::quirks::SValueToNumberQ>,
+    {
+        self.q_as_number(sink).modulo(&other.q_as_number(sink))
+    }
 }
 
 lift_snumber_method! {floor}
@@ -59,6 +68,8 @@ lift_snumber_method! {[SNumberToFloatQ] q_atan (pass)}
 
 lift_snumber_method! {[SNumberToFloatQ] q_exp (pass)}
 lift_snumber_method! {[SNumberToFloatQ] q_power_of_10 (pass)}
+lift_snumber_method! {[SNumberToFloatQ] q_ln (pass)}
+lift_snumber_method! {[SNumberToFloatQ] q_log10 (pass)}
 
 /*
 lift_snumber_method! {q_ln}

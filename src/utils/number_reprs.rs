@@ -51,6 +51,7 @@ pub(crate) fn int2reprsZ(a: i64) -> Vec<SValue> {
 pub(crate) fn ints2reprs(a: i64, b: i64) -> impl Iterator<Item = (SValue, SValue)> {
     int2reprs(a).into_iter().cartesian_product(int2reprs(b))
 }
+
 /// This method returns all variations these two numbers could be
 /// represented as Scratch values. 0 will also returned as -0.0
 ///
