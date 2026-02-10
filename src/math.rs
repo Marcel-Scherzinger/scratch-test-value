@@ -57,6 +57,9 @@ lift_snumber_method! {[SNumberToFloatQ] q_acos (pass)}
 lift_snumber_method! {[SNumberToFloatQ] q_asin (pass)}
 lift_snumber_method! {[SNumberToFloatQ] q_atan (pass)}
 
+lift_snumber_method! {[SNumberToFloatQ] q_exp (pass)}
+lift_snumber_method! {[SNumberToFloatQ] q_power_of_10 (pass)}
+
 /*
 lift_snumber_method! {q_ln}
 lift_snumber_method! {q_log10}
