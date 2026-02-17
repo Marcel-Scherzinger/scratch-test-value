@@ -61,19 +61,7 @@ impl From<f64> for SValue {
 #[cfg(feature = "serde_json")]
 impl From<serde_json::Number> for SValue {
     fn from(value: serde_json::Number) -> SValue {
-        if let Some(n) = value.as_f64() {
-            Self::Float(n)
-        } else if let Some(n) = value.as_i64() {
-            Self::Int(n)
-        } else if let Some(n) = value.as_u64() {
-            if let Ok(i) = n.try_into() {
-                Self::Int(i)
-            } else {
-                Self::Float(n as f64)
-            }
-        } else {
-            Self::Int(0)
-        }
+        SNumber::from(value).into()
     }
 }
 #[cfg(feature = "serde_json")]
@@ -92,5 +80,29 @@ impl From<serde_json::Number> for SNumber {
         } else {
             Self::Int(0)
         }
+    }
+}
+
+#[cfg(feature = "serde_json")]
+#[derive(Debug, PartialEq, Eq, Clone, thiserror::Error)]
+#[error("json value can't be converted into Scratch value (object/array?): {0}")]
+pub struct JsonValueNoSValue(pub serde_json::Value);
+
+#[cfg(feature = "serde_json")]
+impl TryFrom<serde_json::Value> for SValue {
+    type Error = JsonValueNoSValue;
+
+    fn try_from(value: serde_json::Value) -> Result<Self, Self::Error> {
+        let initial = if let Some(num) = value.as_number() {
+            // TODO: HINT integer out of range case is ignored
+            SValue::from(num.clone())
+        } else if let Some(boo) = value.as_bool() {
+            SValue::Bool(boo)
+        } else if let Some(tex) = value.as_str() {
+            SValue::Text(tex.into())
+        } else {
+            return Err(JsonValueNoSValue(value));
+        };
+        Ok(initial)
     }
 }
