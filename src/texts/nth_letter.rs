@@ -12,7 +12,7 @@ pub enum NthLetterOfTextQ {
 }
 impl SValue {
     #[allow(unused)]
-    fn nth_letter_of_me<Q>(&self, one_based_n: &SValue, sink: &mut Q) -> SValue
+    pub fn nth_letter_of_me<Q>(&self, one_based_n: &SValue, sink: &mut Q) -> SValue
     where
         Q: QuirkSink<NthLetterOfTextQ>
             + QuirkSink<SValueToNumberQ>
