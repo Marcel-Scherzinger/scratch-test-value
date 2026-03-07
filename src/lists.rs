@@ -5,7 +5,7 @@ use crate::{
     quirks::{NumberTooBigForIntQ, SValueToNumberQ},
 };
 
-#[derive(Debug, Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct SList {
     data: Vec<SValue>,
     max_length: i64,
