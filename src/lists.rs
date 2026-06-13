@@ -32,6 +32,27 @@ pub enum Indexing {
     OneMore,
 }
 
+impl IntoIterator for SList {
+    type Item = SValue;
+    type IntoIter = std::vec::IntoIter<SValue>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.data.into_iter()
+    }
+}
+
+/// Be careful that this will set the maximum length to
+/// the iterators length. If further insertions should be possible,
+/// reset the max length using [`Self::set_max_length`] afterwards.
+impl<C: Into<SValue>> FromIterator<C> for SList {
+    fn from_iter<T: IntoIterator<Item = C>>(iter: T) -> Self {
+        let v = iter.into_iter().map_into().collect_vec();
+        Self {
+            max_length: v.len() as i64,
+            data: v,
+        }
+    }
+}
+
 #[derive(Debug, thiserror::Error)]
 #[error("The maximum length can't be smaller than the number of items in the list")]
 pub struct ListLongerThanNewMaximum;
@@ -42,6 +63,9 @@ impl SList {
             data: vec![],
             max_length,
         }
+    }
+    pub fn iter(&self) -> impl DoubleEndedIterator<Item = &SValue> {
+        self.data().iter()
     }
 
     pub fn delete_all(&mut self) {
