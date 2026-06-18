@@ -32,6 +32,8 @@ pub use lists::SList;
 /// This models a numeric Scratch value and is therefore returned by numeric
 /// operations or where it is known a value is neither a text nor a boolean.
 #[derive(derive_more::Debug, Clone, derive_more::Display, Copy)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "utoipa", derive(utoipa::ToSchema))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "serde", serde(untagged))]
 pub enum SNumber {
@@ -48,10 +50,13 @@ pub enum SNumber {
 /// So it is useful to have a type that mimics this implicit conversion
 /// behaviour.
 #[derive(derive_more::Debug, Clone, derive_more::Display)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "utoipa", derive(utoipa::ToSchema))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "serde", serde(untagged))]
 pub enum SValue {
     #[debug("{_0:?}")]
+    #[cfg_attr(feature = "utoipa", schema(value_type = String))]
     Text(ARc<str>),
     #[debug("{_0:?}")]
     Int(i64),

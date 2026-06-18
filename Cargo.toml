@@ -15,11 +15,16 @@ serde_json = { version = "1", optional = true }
 thiserror = "2.0"
 serde = { version = "1.0", features = ["derive", "rc"], optional = true }
 
+schemars = { version = "1.2.1", optional = true }
+utoipa = { version = "5.5.0", features = ["rc_schema"], optional = true }
+
 [features]
 # replaces std::rc::Rc with std::sync::Arc so that values can be shared across threads
 thread-share = []
 serde_json = ["dep:serde_json"]
 serde = ["dep:serde"]
+schemars = ["dep:schemars"]
+utoipa = ["dep:utoipa"]
 
 # linting
 [lints.rust]

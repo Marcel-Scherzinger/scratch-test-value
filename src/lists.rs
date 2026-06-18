@@ -6,6 +6,8 @@ use crate::{
 };
 
 #[derive(Debug, PartialEq, Clone)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "utoipa", derive(utoipa::ToSchema))]
 pub struct SList {
     data: Vec<SValue>,
     max_length: i64,
