@@ -98,10 +98,10 @@ impl SList {
         } else if index == 0 {
             sink.put(NthItemOfListQ::PositionZero);
             Indexing::Invalid
-        } else if index as usize <= self.data.len() {
+        } else if index.try_into().unwrap_or(usize::MAX) <= self.data.len() {
             let zero_based = (index - 1) as usize;
             Indexing::Normal(zero_based)
-        } else if index as usize + 1 == self.data.len() {
+        } else if (index + 1).try_into().unwrap_or(usize::MAX) == self.data.len() {
             if !is_insert {
                 sink.put(NthItemOfListQ::PositionTooBig(index));
             }
